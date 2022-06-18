@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <nav-bar></nav-bar>
-        <router-view></router-view>
+        <div class="container"><router-view></router-view></div>
     </div>
 </template>
 
@@ -32,5 +32,10 @@ body {
     color: blue;
     padding: 0;
     margin: 0;
+}
+.container{
+  display: flex;
+  align-self: center;
+  width: 1200px;
 }
 </style>
