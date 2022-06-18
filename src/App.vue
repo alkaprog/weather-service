@@ -33,9 +33,10 @@ body {
     padding: 0;
     margin: 0;
 }
-.container{
-  display: flex;
-  align-self: center;
-  width: 1200px;
+.container {
+    display: flex;
+    align-self: center;
+    width: 900px;
+    padding: 5px;
 }
 </style>

@@ -94,9 +94,14 @@ const getThreeDaysForecast = async (city) => {
                 .filter((el) => el.dt_txt.includes(weatherForThreeDays[i]))
                 .map((o) => o.main.temp)
         );
+        const icons = data.list
+            .filter((el) => el.dt_txt.includes(weatherForThreeDays[i]))
+            .map((el) => el.weather[0].icon);
+        // console.log(temp);
         weatherForThreeDays[i] = {
             date: weatherForThreeDays[i],
             temperature: maxTemp,
+            icon: findMostFrequentElement(icons),
         };
     }
 
@@ -119,6 +124,24 @@ const getCityCoords = async (city) => {
         }
     );
     return { lat: data[0].lat, lon: data[0].lon };
+};
+
+const findMostFrequentElement = (array) => {
+    let temp = [...new Set(array)].map((el) => {
+        return { value: el, frequency: 0 };
+    });
+    array.forEach((el) => {
+        temp.find((icon) => icon.value == el).frequency += 1;
+    });
+    return temp.sort((a, b) => {
+        if (a.frequency > b.frequency) {
+            return -1;
+        }
+        if (a.frequency < b.frequency) {
+            return 1;
+        }
+        return 0;
+    })[0].value;
 };
 
 export { getWeather, getCityCoords, getWeatherByCoords, getThreeDaysForecast };

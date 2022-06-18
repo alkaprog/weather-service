@@ -1,17 +1,31 @@
 <template>
-    <div>{{ this.get() }}</div>
+    <div>
+        <div class="day-select-block">
+            <!-- <div>{{ this.get() }}</div> -->
+            <div v-for="day of this.weatherForecast" :key="day.date">
+                <choose-day-card :dayInfo="day"></choose-day-card>
+            </div>
+        </div>
+        <div class="selectedDay"></div>
+    </div>
 </template>
 
 <script>
+import ChooseDayCard from "../components/ChooseDayCard.vue";
+
 import {
     getCityCoords,
     getWeatherByCoords,
     getThreeDaysForecast,
 } from "../services/api.service.js";
 export default {
-    data() {
-        // days: [Date.now()];
+    components: { ChooseDayCard },
+    async mounted() {
+        this.weatherForecast = await getThreeDaysForecast("Rostov-on-Don");
     },
+    data: () => ({
+        weatherForecast: [],
+    }),
     methods: {
         async get() {
             const weather = await getWeatherByCoords("Rostov-on-Don");
@@ -26,4 +40,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.day-select-block {
+    width: 900px;
+    display: flex;
+    justify-content: space-around;
+}
+</style>
