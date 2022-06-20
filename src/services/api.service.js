@@ -108,6 +108,28 @@ const getThreeDaysForecast = async (city) => {
     return weatherForThreeDays;
 };
 
+const getFiveDaysForecast = async (city) => {
+    const token = "5122a5d00751f826c44da67427d31c68";
+    const coords = await getCityCoords(city);
+    if (!token) {
+        throw new Error("Не задан api ключ!");
+    }
+
+    const { data } = await axios.get(
+        "https://api.openweathermap.org/data/2.5/forecast",
+        {
+            params: {
+                lat: coords.lat,
+                lon: coords.lon,
+                appid: token,
+                lang: "ru",
+                units: "metric",
+            },
+        }
+    );
+    return data;
+};
+
 const getCityCoords = async (city) => {
     const token = "5122a5d00751f826c44da67427d31c68"; //await getKeyValue(TOKEN_DICTIONARY.token);
     if (!token) {
@@ -144,4 +166,11 @@ const findMostFrequentElement = (array) => {
     })[0].value;
 };
 
-export { getWeather, getCityCoords, getWeatherByCoords, getThreeDaysForecast };
+export {
+    getWeather,
+    getCityCoords,
+    getWeatherByCoords,
+    getThreeDaysForecast,
+    getFiveDaysForecast,
+    findMostFrequentElement,
+};
