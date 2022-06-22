@@ -155,7 +155,7 @@ const findMostFrequentElement = (array) => {
     array.forEach((el) => {
         temp.find((icon) => icon.value == el).frequency += 1;
     });
-    return temp.sort((a, b) => {
+    temp.sort((a, b) => {
         if (a.frequency > b.frequency) {
             return -1;
         }
@@ -163,7 +163,10 @@ const findMostFrequentElement = (array) => {
             return 1;
         }
         return 0;
-    })[0].value;
+    });
+    return temp[0].value.includes("d")
+        ? temp[0].value
+        : temp[0].value.slice(0, temp[0].value.length - 1) + "d";
 };
 
 export {

@@ -2,29 +2,38 @@
     <div class="wrap" v-if="this.getWeatherInfoForFourDays">
         <!-- {{ this.getWeatherInfoForFourDays }} -->
         <div class="day-cards">
-            <choose-day-card
-                v-for="day in this.getWeatherInfoForFourDays"
-                :key="day"
-                :dayInfo="this.getWeatherInfoForFourDays[day]"
-            ></choose-day-card>
+            <small-weather-card
+                v-for="day of this.getWeatherInfoForFourDays"
+                :key="day.date"
+                :dayInfo="day"
+            ></small-weather-card>
         </div>
-        <main-day-card :date="new Date()"></main-day-card>
+        <main-day-card
+            class="current-weather-card"
+            :date="new Date()"
+        ></main-day-card>
+        <temperature-graph
+            :info="this.getWeatherInfoForGraph"
+        ></temperature-graph>
+        <!-- <chart-example></chart-example> -->
     </div>
 </template>
 
 <script>
-// import ChooseDayCard from "@/components/ChooseDayCard.vue";
 import { mapActions, mapGetters } from "vuex";
-import MainDayCard from "../components/MainDayCard.vue";
-// import { getWeather } from "../services/api.service.js";
+import SmallWeatherCard from "@/components/SmallWeatherCard.vue";
+import MainDayCard from "@/components/MainDayCard.vue";
+import TemperatureGraph from "@/components/TemperatureGraph.vue";
 export default {
-    components: { MainDayCard },
+    components: { MainDayCard, SmallWeatherCard, TemperatureGraph },
+    data: () => ({}),
     mounted() {
-        // console.log(123);
         this.refreshForecastForToday();
         this.refreshForecastForFiveDays();
-        // console.log(this.getWeatherInfoForFourDays);
-        // $state.forecast.
+        setInterval(() => {
+            this.refreshForecastForToday();
+            this.refreshForecastForFiveDays();
+        }, 10000);
     },
     methods: {
         ...mapActions({
@@ -36,6 +45,7 @@ export default {
         ...mapGetters({
             getForecastForFiveDays: "getForecastForFiveDays",
             getWeatherInfoForFourDays: "getWeatherInfoForFourDays",
+            getWeatherInfoForGraph: "getWeatherInfoForGraph",
         }),
     },
 };
@@ -50,8 +60,14 @@ export default {
     align-items: center;
 }
 .day-cards {
-    border: 1px black solid;
-    height: 100px;
+    display: flex;
+    border: 2px #293c73 solid;
+    border-radius: 10px;
+    height: 60px;
     width: 100%;
+    margin-bottom: 10px;
+}
+.current-weather-card {
+    margin-bottom: 10px;
 }
 </style>

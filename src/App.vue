@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div class="wrapper">
         <nav-bar></nav-bar>
         <div class="container"><router-view></router-view></div>
     </div>
@@ -7,35 +7,26 @@
 
 <script>
 import NavBar from "./components/NavBar.vue";
-// import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
     components: { NavBar },
     name: "App",
-    // components: {
-    //     HelloWorld,
-    // },
 };
 </script>
 
-<style>
-html,
-body {
-    margin: 0px !important;
-    padding: 0px !important;
-}
-#app {
+<style scoped>
+
+.wrapper {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    color: blue;
-    padding: 0;
-    margin: 0;
+    align-items: center;
+    justify-content: center;
 }
 .container {
     display: flex;
-    align-self: center;
+    justify-content: center;
+    align-content: center;
     width: 900px;
     padding: 5px;
 }

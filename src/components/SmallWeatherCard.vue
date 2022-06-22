@@ -1,9 +1,5 @@
 <template>
-    <div
-        class="wrapper"
-        :class="{ active: isActive }"
-        @click="this.toggleActive"
-    >
+    <div class="wrapper">
         <img
             class="weather-icon"
             :src="
@@ -28,12 +24,6 @@ export default {
             required: true,
         },
     },
-    methods: {
-        toggleActive() {
-            console.log(1);
-            this.isActive = !this.isActive;
-        },
-    },
 };
 </script>
 
@@ -41,18 +31,17 @@ export default {
 .wrapper {
     min-width: 100px;
     width: 200px;
-    height: 40px;
+    height: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border: 1px blue solid;
-    border-radius: 3px;
+    border-radius: 10px;
     cursor: pointer;
+}
+.wrapper:hover {
+    background: lightgrey;
 }
 .weather-icon {
     height: 40px;
-}
-.wrapper.active {
-    border: 3px blue solid;
 }
 </style>

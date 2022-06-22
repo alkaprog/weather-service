@@ -1,44 +1,66 @@
 <template>
     <div class="navbar">
         <div class="title">Weather App</div>
-        <button class="change-page-btn" @click="$router.push('/')">
-            Today
+        <button
+            class="btn today"
+            :class="activeTab == 'today' ? true : false"
+            @click="$router.push('/')"
+        >
+            Сегодня
         </button>
-        <button class="change-page-btn" @click="$router.push('/3-days')">
-            3 days
+        <button
+            class="btn three-days"
+            :class="isActive"
+            @click="$router.push('/3-days')"
+        >
+            3 дня
         </button>
-        <button class="change-page-btn" @click="$router.push('/week')">
-            Week
+        <button
+            class="btn week"
+            :class="isActive"
+            @click="$router.push('/week')"
+        >
+            Неделя
         </button>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+    data: () => ({
+        activeTab: "today",
+    }),
+};
 </script>
 
-<style>
+<style scoped>
 .navbar {
+    color: white;
     display: flex;
     align-items: center;
     width: 100%;
     height: 40px;
-    background: lightblue;
+    background: #293c73;
 }
-.change-page-btn {
+.btn {
+    margin-left: 10px;
+    color: white;
     height: 100%;
     width: 100px;
     outline: none;
     border: none;
     background: inherit;
-    margin-left: 10px;
 }
-.change-page-btn:hover {
-    background: blue;
+.btn:hover {
+    background: lightgray;
     cursor: pointer;
-    color: white;
+    color: #293c73;
 }
-.title{
+.btn.active {
+    background: lightgray;
+}
+
+.title {
     margin-left: 10px;
 }
 </style>

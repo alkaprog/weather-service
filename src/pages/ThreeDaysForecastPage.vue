@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import ChooseDayCard from "../components/ChooseDayCard.vue";
+import ChooseDayCard from "../components/SmallWeatherCard.vue";
 
 import {
     getThreeDaysForecast,
@@ -24,17 +24,6 @@ export default {
     data: () => ({
         weatherForecast: [],
     }),
-    methods: {
-        // async get() {
-        //     const weather = await getWeatherByCoords("Rostov-on-Don");
-        //     console.log(weather);
-        //     const temp = await getCityCoords("Rostov-on-Don");
-        //     console.log(temp);
-        //     const temp2 = await getThreeDaysForecast("Rostov-on-Don");
-        //     console.log(temp2);
-        //     return JSON.stringify(123);
-        // },
-    },
 };
 </script>
 

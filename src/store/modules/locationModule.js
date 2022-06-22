@@ -1,6 +1,6 @@
 export const locationModule = {
     state: () => ({
-        locationName: "Rostov-on-Don",
+        locationName: "Ростов-на-Дону",
         locationLat: 47.2214,
         locationLon: 39.7114,
     }),

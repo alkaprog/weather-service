@@ -10,7 +10,7 @@
         <div class="location-name">{{ this.getLocationName }}</div>
         <div class="weather">
             <div class="temperature">
-                {{ this.getforecastForToday.main.temp }}
+                {{ this.getforecastForToday.main.temp }} °С
             </div>
             <img
                 :src="
@@ -53,12 +53,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-/* @font-face {
-    font-family: "YS Text";
-    src: url("../fonts/YandexSansText-Regular.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-} */
+
 
 .wrapper {
     /* font-family: "Roboto", sans-serif; */
@@ -66,7 +61,7 @@ export default {
     background: #293c73;
     color: white;
     width: 600px;
-    height: 200px;
+    height: 170px;
     align-self: center;
     display: flex;
     flex-direction: column;

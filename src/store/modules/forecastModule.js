@@ -2,7 +2,8 @@ import {
     getFiveDaysForecast,
     getWeatherByCoords,
     findMostFrequentElement,
-} from "../../services/api.service";
+} from "@/services/api.service";
+import { getDayName, formatDate } from "@/services/date.service";
 export const forecastModule = {
     state: () => ({
         forecastForToday: undefined,
@@ -24,7 +25,6 @@ export const forecastModule = {
             if (state.forecastForFiveDays) {
                 let weatherInfoForFourDays = [];
                 for (let i = 0; i < 4; i++) {
-                    console.log(i);
                     weatherInfoForFourDays.push(
                         new Date(
                             new Date().getTime() + (i + 1) * 24 * 60 * 60 * 1000
@@ -58,6 +58,27 @@ export const forecastModule = {
             }
             return undefined;
         },
+        getWeatherInfoForGraph(state) {
+            let weatherInfoForFiveDays = [];
+            for (let i = 0; i < 5; i++) {
+                const date = new Date().getTime() + i * 24 * 60 * 60 * 1000;
+                const dayName = getDayName(new Date(date));
+                const tempForDay = [...state.forecastForFiveDays.list]
+                    .filter((el) =>
+                        el.dt_txt.includes(formatDate(new Date(date)))
+                    )
+                    .map((o) => o.main.temp);
+                weatherInfoForFiveDays.push({
+                    name: dayName,
+                    avg:
+                        tempForDay.reduce((p, c) => p + c, 0) /
+                        tempForDay.length,
+                    min: Math.min(...tempForDay),
+                    max: Math.max(...tempForDay),
+                });
+            }
+            return weatherInfoForFiveDays;
+        },
     },
     mutations: {
         setForecastForToday(state, forecastForToday) {
@@ -85,5 +106,3 @@ export const forecastModule = {
         },
     },
 };
-////
-//
