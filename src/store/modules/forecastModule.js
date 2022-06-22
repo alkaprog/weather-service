@@ -26,21 +26,24 @@ export const forecastModule = {
                 let weatherInfoForFourDays = [];
                 for (let i = 0; i < 4; i++) {
                     weatherInfoForFourDays.push(
-                        new Date(
-                            new Date().getTime() + (i + 1) * 24 * 60 * 60 * 1000
+                        formatDate(
+                            new Date(
+                                new Date().getTime() +
+                                    (i + 1) * 24 * 60 * 60 * 1000
+                            )
                         )
-                            .toISOString()
-                            .slice(0, 10)
                     );
                 }
                 for (let i = 0; i < 4; i++) {
-                    let maxTemp = Math.max(
-                        ...state.forecastForFiveDays.list
-                            .filter((el) =>
-                                el.dt_txt.includes(weatherInfoForFourDays[i])
-                            )
-                            .map((o) => o.main.temp)
+                    const date = new Date(
+                        new Date().getTime() + i * 24 * 60 * 60 * 1000
                     );
+                    const tempForDay = [...state.forecastForFiveDays.list]
+                        .filter((el) =>
+                            el.dt_txt.includes(weatherInfoForFourDays[i])
+                        )
+                        .map((o) => o.main.temp);
+
                     const icons = state.forecastForFiveDays.list
                         .filter((el) =>
                             el.dt_txt.includes(weatherInfoForFourDays[i])
@@ -48,11 +51,11 @@ export const forecastModule = {
                         .map((el) => el.weather[0].icon);
                     // console.log(temp);
                     weatherInfoForFourDays[i] = {
-                        date: weatherInfoForFourDays[i],
-                        temperature: maxTemp,
+                        dayName: getDayName(date),
+                        minTemp: Math.min(...tempForDay),
+                        maxTemp: Math.max(...tempForDay),
                         icon: findMostFrequentElement(icons),
                     };
-                    console.log(weatherInfoForFourDays[i]);
                 }
                 return weatherInfoForFourDays;
             }

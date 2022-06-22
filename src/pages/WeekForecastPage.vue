@@ -1,5 +1,5 @@
 <template>
-    <div>dick</div>
+    <h1>Страница в разработке</h1>
 </template>
 
 <script>

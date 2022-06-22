@@ -1,13 +1,6 @@
 import axios from "axios";
-//import https from "https";
-//import { getKeyValue, TOKEN_DICTIONARY } from "./storage.service.js";
-//r> $env:TOKEN='5122a5d00751f826c44da67427d31c68';$env:CITY='moscow';node weather
+import { token } from "@/constants/token";
 const getWeather = async (city) => {
-    const token = "5122a5d00751f826c44da67427d31c68"; //await getKeyValue(TOKEN_DICTIONARY.token);
-
-    if (!token) {
-        throw new Error("Не задан api ключ!");
-    }
     const { data } = await axios.get(
         "https://api.openweathermap.org/data/2.5/weather",
         {
@@ -20,30 +13,9 @@ const getWeather = async (city) => {
         }
     );
     return data;
-    /*
-    const url = new URL("https://api.openweathermap.org/data/2.5/weather");
-    url.searchParams.append("q", city);
-    url.searchParams.append("appid", token);
-    url.searchParams.append("lang", "ru");
-    url.searchParams.append("units", "metric");
-
-    https.get(url, (response) => {
-        let res = "";
-        response.on("data", (chunc) => {
-            res += chunc;
-        });
-        response.on("end", (chunc) => {
-            console.log(res);
-        });
-    });
-    */
 };
 
 const getWeatherByCoords = async (city) => {
-    const token = "5122a5d00751f826c44da67427d31c68";
-    if (!token) {
-        throw new Error("Не задан api ключ!");
-    }
     const coords = await getCityCoords(city);
     const { data } = await axios.get(
         "https://api.openweathermap.org/data/2.5/weather",
@@ -61,12 +33,7 @@ const getWeatherByCoords = async (city) => {
 };
 
 const getThreeDaysForecast = async (city) => {
-    const token = "5122a5d00751f826c44da67427d31c68";
     const coords = await getCityCoords(city);
-    if (!token) {
-        throw new Error("Не задан api ключ!");
-    }
-
     const { data } = await axios.get(
         "https://api.openweathermap.org/data/2.5/forecast",
         {
@@ -109,12 +76,7 @@ const getThreeDaysForecast = async (city) => {
 };
 
 const getFiveDaysForecast = async (city) => {
-    const token = "5122a5d00751f826c44da67427d31c68";
     const coords = await getCityCoords(city);
-    if (!token) {
-        throw new Error("Не задан api ключ!");
-    }
-
     const { data } = await axios.get(
         "https://api.openweathermap.org/data/2.5/forecast",
         {
@@ -131,10 +93,6 @@ const getFiveDaysForecast = async (city) => {
 };
 
 const getCityCoords = async (city) => {
-    const token = "5122a5d00751f826c44da67427d31c68"; //await getKeyValue(TOKEN_DICTIONARY.token);
-    if (!token) {
-        throw new Error("Не задан api ключ!");
-    }
     const { data } = await axios.get(
         "http://api.openweathermap.org/geo/1.0/direct",
         {
@@ -149,13 +107,13 @@ const getCityCoords = async (city) => {
 };
 
 const findMostFrequentElement = (array) => {
-    let temp = [...new Set(array)].map((el) => {
+    let elements = [...new Set(array)].map((el) => {
         return { value: el, frequency: 0 };
     });
     array.forEach((el) => {
-        temp.find((icon) => icon.value == el).frequency += 1;
+        elements.find((icon) => icon.value == el).frequency += 1;
     });
-    temp.sort((a, b) => {
+    elements.sort((a, b) => {
         if (a.frequency > b.frequency) {
             return -1;
         }
@@ -164,9 +122,9 @@ const findMostFrequentElement = (array) => {
         }
         return 0;
     });
-    return temp[0].value.includes("d")
-        ? temp[0].value
-        : temp[0].value.slice(0, temp[0].value.length - 1) + "d";
+    return elements[0].value.includes("d")
+        ? elements[0].value
+        : elements[0].value.slice(0, elements[0].value.length - 1) + "d";
 };
 
 export {

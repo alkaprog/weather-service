@@ -1,15 +1,15 @@
 <template>
     <div class="wrapper">
-        <img
-            class="weather-icon"
-            :src="
-                'http://openweathermap.org/img/wn/' +
-                this.dayInfo.icon +
-                '@2x.png'
-            "
-            alt="weather-icon"
-        />
-        <div class="temperature">{{ this.dayInfo.temperature }}°</div>
+        <div class="day-name">{{ this.dayInfo.dayName }}</div>
+        <div class="weather">
+            <img
+                class="weather-icon"
+                :src="this.getImageLink"
+                alt="weather-icon"
+            />
+            <div class="max-temp">{{ this.dayInfo.maxTemp }}°</div>
+            <div class="min-temp">{{ this.dayInfo.minTemp }}°</div>
+        </div>
     </div>
 </template>
 
@@ -22,6 +22,15 @@ export default {
         dayInfo: {
             type: Object,
             required: true,
+        },
+    },
+    computed: {
+        getImageLink() {
+            return (
+                "http://openweathermap.org/img/wn/" +
+                this.dayInfo.icon +
+                "@2x.png"
+            );
         },
     },
 };
@@ -37,11 +46,29 @@ export default {
     align-items: center;
     border-radius: 10px;
     cursor: pointer;
+    color: #293c73;
+}
+.wrapper .day-name {
+    font-size: 25px;
 }
 .wrapper:hover {
     background: lightgrey;
 }
 .weather-icon {
     height: 40px;
+}
+.min-temp {
+    color: white;
+    padding: 1px;
+    margin-top: 3px;
+    background: #0077ff;
+    border-radius: 2px;
+    margin-bottom: 1px;
+}
+.max-temp {
+    padding: 1px;
+    color: white;
+    background: #ec6e4c;
+    border-radius: 2px;
 }
 </style>

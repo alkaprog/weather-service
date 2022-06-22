@@ -1,7 +1,7 @@
 <template>
     <div class="chart-wrapper">
         <Chart
-            :size="{ width: 576, height: 300 }"
+            :size="size"
             :data="data"
             :margin="margin"
             :direction="direction"
@@ -58,6 +58,7 @@ export default defineComponent({
             right: 0,
             bottom: 0,
         });
+        const size = ref({ width: 576, height: 450 });
 
         const axis = ref({
             primary: {
@@ -70,7 +71,7 @@ export default defineComponent({
             },
         });
 
-        return { data, direction, margin, axis };
+        return { data, size, direction, margin, axis };
     },
 });
 </script>

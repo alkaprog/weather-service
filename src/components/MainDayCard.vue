@@ -2,10 +2,20 @@
     <div class="wrapper" v-if="this.getforecastForToday">
         <!-- <div class="">{{ this.getforecastForToday }}</div> -->
         <div class="date-block">
-            <div class="date">{{ formatDate(new Date()) }}</div>
+            <div class="date">{{ this.getCurrentDate().date }}</div>
             <div class="time">
-                {{ new Date().getHours() + ":" + new Date().getMinutes() }}
+                {{ this.getCurrentDate().time }}
             </div>
+            <button
+                class="refresh-button"
+                @click="this.refreshForecastForToday"
+            >
+                <img
+                    class="refresh-button-icon"
+                    src="../assets/refresh.png"
+                    alt="refresh"
+                />
+            </button>
         </div>
         <div class="location-name">{{ this.getLocationName }}</div>
         <div class="weather">
@@ -31,8 +41,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { formatDate } from "../services/date.service";
+import { mapGetters, mapActions } from "vuex";
+import { getCurrentDate } from "@/services/date.service";
 export default {
     computed: {
         ...mapGetters({
@@ -41,7 +51,10 @@ export default {
         }),
     },
     methods: {
-        formatDate,
+        ...mapActions({
+            refreshForecastForToday: "refreshForecastForToday",
+        }),
+        getCurrentDate,
     },
     props: {
         date: {
@@ -53,14 +66,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
-
 .wrapper {
-    /* font-family: "Roboto", sans-serif; */
     font-weight: 600;
     background: #293c73;
     color: white;
-    width: 600px;
+    width: 100%;
     height: 170px;
     align-self: center;
     display: flex;
@@ -73,6 +83,15 @@ export default {
 }
 .wrapper .date-block .time {
     margin-left: 10px;
+}
+
+.wrapper .date-block .refresh-button {
+    margin-left: 10px;
+    background: inherit;
+    border: none;
+}
+.wrapper .date-block .refresh-button:hover {
+    cursor: pointer;
 }
 .wrapper .location-name {
     margin-top: 10px;
@@ -89,5 +108,10 @@ export default {
 }
 .wrapper .weather .weather-description {
     font-size: 30px;
+}
+
+.refresh-button-icon {
+    width: 16px;
+    transition: transform 0.7s ease-in-out;
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
     <div class="wrapper">
         <nav-bar></nav-bar>
-        <div class="container"><router-view></router-view></div>
+        <div class="container">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 
@@ -15,7 +17,6 @@ export default {
 </script>
 
 <style scoped>
-
 .wrapper {
     width: 100%;
     display: flex;
@@ -27,7 +28,12 @@ export default {
     display: flex;
     justify-content: center;
     align-content: center;
-    width: 900px;
+    max-width: 900px;
     padding: 5px;
+}
+@media (max-width: 620px){
+    .container{
+        max-width: 450px;
+    }
 }
 </style>
