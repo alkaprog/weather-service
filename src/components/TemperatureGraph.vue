@@ -32,6 +32,20 @@
                 ></Line>
             </template>
         </Chart>
+        <div class="designations">
+            <div class="designation">
+                <div class="color max"></div>
+                <div class="title">Max</div>
+            </div>
+            <div class="designation">
+                <div class="color min"></div>
+                <div class="title">Min</div>
+            </div>
+            <div class="designation">
+                <div class="color avg"></div>
+                <div class="title">Avg</div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -77,8 +91,42 @@ export default defineComponent({
 </script>
 <style scoped>
 .chart-wrapper {
+    color: #293c73;
+    display: flex;
+    flex-direction: column;
     border: 2px #293c73 solid;
     border-radius: 10px;
     padding: 10px;
+}
+
+.designations {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.designation {
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.color {
+    height: 10px;
+    width: 40px;
+}
+.title{
+    margin-left: 10px;
+}
+.max {
+    background: #fb5638;
+}
+.avg {
+    background: #293c73;
+}
+.min {
+    background: #0077ff;
 }
 </style>
