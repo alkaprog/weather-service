@@ -23,43 +23,7 @@ export const forecastModule = {
         },
         getWeatherInfoForFourDays(state) {
             if (state.forecastForFiveDays) {
-                // let weatherInfoForFourDays = [];
-                // for (let i = 0; i < 4; i++) {
-                //     weatherInfoForFourDays.push(
-                //         formatDate(
-                //             new Date(
-                //                 new Date().getTime() +
-                //                     (i) * 24 * 60 * 60 * 1000
-                //             )
-                //         )
-                //     );
-                // }
-                // for (let i = 0; i < 4; i++) {
-                //     const date = new Date(
-                //         new Date().getTime() + i * 24 * 60 * 60 * 1000
-                //     );
-                //     const tempForDay = [...state.forecastForFiveDays.list]
-                //         .filter((el) =>
-                //             el.dt_txt.includes(weatherInfoForFourDays[i])
-                //         )
-                //         .map((o) => o.main.temp);
-
-                //     const icons = state.forecastForFiveDays.list
-                //         .filter((el) =>
-                //             el.dt_txt.includes(weatherInfoForFourDays[i])
-                //         )
-                //         .map((el) => el.weather[0].icon);
-                //     // console.log(temp);
-                //     weatherInfoForFourDays[i] = {
-                //         dayName: getDayName(date),
-                //         minTemp: Math.min(...tempForDay),
-                //         maxTemp: Math.max(...tempForDay),
-                //         icon: findMostFrequentElement(icons),
-                //     };
-                // }
-                // return weatherInfoForFourDays;
                 let weatherInfoForFourDays = [];
-
                 for (let i = 0; i < 4; i++) {
                     const date = new Date().getTime() + i * 24 * 60 * 60 * 1000;
                     const dayName = getDayName(new Date(date));
@@ -74,7 +38,7 @@ export const forecastModule = {
                         )
                         .map((el) => el.weather[0].icon);
                     weatherInfoForFourDays.push({
-                        name: dayName,
+                        dayName: dayName,
                         minTemp: Math.min(...tempForDay),
                         maxTemp: Math.max(...tempForDay),
                         icon: findMostFrequentElement(icons),
